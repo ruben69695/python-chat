@@ -11,7 +11,7 @@ This is an open source project to develop a chat to improve our Python skills le
 - Threads
 - Sockets
 - Microsoft Azure
-- Windows, Linux, Mac
+- Windows, Linux and Mac
 
 # Contribute
 If you want to contribute please not to wait and send me a message to add you to collaborate in this open source project. We are waiting for your help. Happy coding! 
