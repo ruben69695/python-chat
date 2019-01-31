@@ -1,9 +1,9 @@
-# Open source python chat
+# Open source chat
 This is an open source project to develop a python chat to improve our Python skills learning how to work with threads and sockets in Python programming language.
 
 # Getting Started
 1.  Clone the Repository
-2.  Install Pyhton
+2.  Install Python
 3.  Open the Project with Visual Studio Code or similar
 
 # Technologies
