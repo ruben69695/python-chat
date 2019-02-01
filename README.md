@@ -5,6 +5,7 @@ This is an open source project to develop a chat to improve our Python skills le
 1.  Clone the Repository
 2.  Install Python
 3.  Open the Project with Visual Studio Code or similar
+4.  Run the main Python file
 
 # Technologies
 - Python
