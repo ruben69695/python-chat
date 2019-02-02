@@ -11,6 +11,7 @@ This is an open source project to develop an open chat platform with the objecti
 - Python
 - Threads
 - Sockets
+- PostgreSQL
 - Microsoft Azure
 - Windows, Linux and Mac
 
