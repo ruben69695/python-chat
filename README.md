@@ -1,5 +1,5 @@
 # Open source chat
-This is an open source project to develop a chat to improve our Python skills learning threads and sockets in Python programming language. Made by the Intergalactic Python Team.
+This is an open source project to develop an open chat platform with the objective of improve our Python skills. Made by the Intergalactic Python Team.
 
 # Getting Started
 1.  Clone the Repository
