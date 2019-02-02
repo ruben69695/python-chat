@@ -1,4 +1,4 @@
-# Open source chat
+# PyChat Platform
 This is an open source project to develop an open chat platform with the objective of improve our Python skills. Made by the Intergalactic Python Team.
 
 # Getting Started
