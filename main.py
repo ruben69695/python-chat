@@ -1,3 +1,4 @@
+import time
 from server.TCPServer import TCPServer
 from server.RequestHandler import RequestHandler
 
@@ -19,7 +20,8 @@ if __name__ == "__main__":
     with server:
         server.start()
         while(True):
-            pass
+            # Sleep the thread to avoid hard cpu work
+            time.sleep(60)
     server.shutdown()
 
     
