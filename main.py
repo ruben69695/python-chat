@@ -38,7 +38,7 @@ def get_args(args, default_host, default_port, bad_args = False):
                 result[0] = True
                 print("Bad arguments...\n")
                 print_instructions()
-                break;
+                break
 
     return result
 
