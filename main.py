@@ -13,20 +13,18 @@ from server.RequestHandler import RequestHandler
 # client(ip, port, "This is another message, sended from my machine")
 # client(ip, port, "Another interesting message sended from the moon, hey dude I have cookies here!")
 
-if __name__ == "__main__":
-    
-    params = sys.argv
-    HOST = 'localhost'
-    PORT = 3000
-    EXIT = False
+def print_instructions():
+    print("Instructions:\n-> python main.py -h [HOST] -p [PORT]")
 
+def get_args(args, default_host, default_port, bad_args = False):
+    result = [bad_args, default_host, default_port]
     saved_parameter = ''
-    for index, cur_parameter in enumerate(params):
+    for index, cur_parameter in enumerate(args):
         
         if saved_parameter == '-h':
-            HOST = cur_parameter
+            result[1] = cur_parameter
         elif saved_parameter == '-p':
-            PORT = int(cur_parameter)            
+            result[2] = int(cur_parameter)            
 
         if cur_parameter == '-h':
             saved_parameter = cur_parameter
@@ -35,13 +33,22 @@ if __name__ == "__main__":
         else:
             saved_parameter = ''
 
-        if saved_parameter != '' and index + 1 >= len(params):
-            EXIT = True
+        if saved_parameter != '' and index + 1 >= len(args):
+            result[0] = True
             print("Bad arguments...\n")
-            print("Intructions:\n-> python main.py -h [HOST] -p [PORT]")
+            print_instructions()
             break;
-            
+    return result
 
+
+if __name__ == "__main__":
+    
+    HOST = 'localhost'
+    PORT = 3000
+    EXIT = False
+
+    EXIT, HOST, PORT = get_args(sys.argv, default_host=HOST, default_port=PORT, bad_args=EXIT)
+            
     if EXIT == False:
         server = TCPServer((HOST, PORT), RequestHandler)
         with server:
