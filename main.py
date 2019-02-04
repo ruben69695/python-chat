@@ -1,4 +1,5 @@
 import time
+import sys
 from server.TCPServer import TCPServer
 from server.RequestHandler import RequestHandler
 
@@ -14,14 +15,38 @@ from server.RequestHandler import RequestHandler
 
 if __name__ == "__main__":
     
+    params = sys.argv
     HOST = 'localhost'
     PORT = 3000
-    server = TCPServer((HOST, PORT), RequestHandler)
-    with server:
-        server.start()
-        while(True):
-            # Sleep the thread to avoid hard cpu work
-            time.sleep(60)
-    server.shutdown()
+    EXIT = False
 
-    
+    saved_parameter = ''
+    for index, cur_parameter in enumerate(params):
+        
+        if saved_parameter == '-h':
+            HOST = cur_parameter
+        elif saved_parameter == '-p':
+            PORT = int(cur_parameter)            
+
+        if cur_parameter == '-h':
+            saved_parameter = cur_parameter
+        elif cur_parameter == '-p':
+            saved_parameter = cur_parameter
+        else:
+            saved_parameter = ''
+
+        if saved_parameter != '' and index + 1 >= len(params):
+            EXIT = True
+            print("Bad arguments...\n")
+            print("Intructions:\n-> python main.py -h [HOST] -p [PORT]")
+            break;
+            
+
+    if EXIT == False:
+        server = TCPServer((HOST, PORT), RequestHandler)
+        with server:
+            server.start()
+            while(True):
+                # Sleep the thread to avoid hard cpu work
+                time.sleep(60)
+        server.shutdown()
