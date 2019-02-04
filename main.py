@@ -19,25 +19,27 @@ def print_instructions():
 def get_args(args, default_host, default_port, bad_args = False):
     result = [bad_args, default_host, default_port]
     saved_parameter = ''
-    for index, cur_parameter in enumerate(args):
-        
-        if saved_parameter == '-h':
-            result[1] = cur_parameter
-        elif saved_parameter == '-p':
-            result[2] = int(cur_parameter)            
 
-        if cur_parameter == '-h':
-            saved_parameter = cur_parameter
-        elif cur_parameter == '-p':
-            saved_parameter = cur_parameter
-        else:
-            saved_parameter = ''
+    if len(args) > 1:
+        for index, cur_parameter in enumerate(args):         
+            if saved_parameter == '-h':
+                result[1] = cur_parameter
+            elif saved_parameter == '-p':
+                result[2] = int(cur_parameter)            
 
-        if saved_parameter != '' and index + 1 >= len(args):
-            result[0] = True
-            print("Bad arguments...\n")
-            print_instructions()
-            break;
+            if cur_parameter == '-h':
+                saved_parameter = cur_parameter
+            elif cur_parameter == '-p':
+                saved_parameter = cur_parameter
+            else:
+                saved_parameter = ''
+
+            if saved_parameter != '' and index + 1 >= len(args):
+                result[0] = True
+                print("Bad arguments...\n")
+                print_instructions()
+                break;
+
     return result
 
 
