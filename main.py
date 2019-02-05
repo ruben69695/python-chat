@@ -36,7 +36,6 @@ def get_args(args, default_host, default_port, bad_args = False):
 
             if saved_parameter != '' and index + 1 >= len(args):
                 result[0] = True
-                print("Bad arguments...\n")
                 print_instructions()
                 break
 
