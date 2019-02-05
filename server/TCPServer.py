@@ -2,8 +2,36 @@ import socketserver
 import threading
 
 class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    """
+    Provides continue streams of data between client and server using Internet TCP protocol
+
+    ...
+
+    Attributes
+    ----------
+    ip : str
+        An IP address for the server thread
+    port : int
+        A port to the IP address
+    server_thread: threading.Thread
+        Creates a server thread using threading.Thread constructor
+
+    Methods
+    -------
+    start(self)
+        Initializes a TCPServer instance server thread
+    """
+
     
     def __init__(self, server_address, RequestHandlerClass):
+        """
+        Parameters
+        ----------
+        server_address : tuple
+            A 2 values tuple containint the server IP and port
+        RequestHandlerClass : RequestHandler class
+            Handles HTTP requests arrived at the server, using the handle() method
+        """
         socketserver.TCPServer.__init__(self, server_address, RequestHandlerClass)
         self.ip = server_address[0]
         self.port = server_address[1]
@@ -11,6 +39,14 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         self.server_thread.daemon = True
     
     def start(self):
+        """ Starts the instance's server thread 
+
+        Parameters
+        ----------
+        self : TCPServer Class
+            Uses self.ip and self.port attributes to start the server
+        
+        """
         self.server_thread.start()
-        print("Server running on {}:{}".format(self.ip, self.port))
+        print(f'Server running on {self.ip}:{self.port}')
         
