@@ -1,6 +1,6 @@
 class Queue():
 
-    def __init__(self, items = []):
+    def __init__(self, items=[]):
         self.__array = items
         self.length = len(items)
     
@@ -12,8 +12,8 @@ class Queue():
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self.__array[self.length - 1]
-        self.__array.pop(self.length - 1)
+        last = self.__array[-1]
+        self.__array.pop(-1)
         self.length -= 1
         return last
     
