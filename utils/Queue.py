@@ -12,8 +12,7 @@ class Queue():
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self.__array[-1]
-        self.__array.pop(-1)
+        last = self.__array.pop()
         self.length -= 1
         return last
     
