@@ -48,8 +48,10 @@ if __name__ == "__main__":
     PORT = 3000
     EXIT = False
 
+    # Get arguments passed on the command-line and assigns them to Host, Port and exit
     EXIT, HOST, PORT = get_args(sys.argv, default_host=HOST, default_port=PORT, bad_args=EXIT)
-            
+
+    # If there is not a bad argument, initialize the server
     if EXIT == False:
         server = TCPServer((HOST, PORT), RequestHandler)
         with server:
