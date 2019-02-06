@@ -1,6 +1,6 @@
 from utils import BaseCollection
 
-class Queue(BaseCollection.BaseCollection):
+class Stack(BaseCollection.BaseCollection):
 
     def __init__(self, items=[]):
         self.__array = items
@@ -8,14 +8,11 @@ class Queue(BaseCollection.BaseCollection):
     
     def remove(self):
         if self.length == 0:
-            raise Exception('The queue is empty')
+            raise Exception('The stack is empty')
 
-        last = self.__array.pop(0)
+        last = self.__array.pop()
         self.length -= 1
         return last
-    
-    def get_queue(self):
-        return self.__array
 
     def clone(self):
-        return Queue(self.__array)
+        return Stack(self.__array)
