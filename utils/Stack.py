@@ -53,7 +53,7 @@ class Stack():
         None
         """
         if self.length == 0:
-            raise Exception('The queue is empty')
+            raise Exception('The stack is empty')
 
         last = self.__array[-1]
         self.length -= 1
