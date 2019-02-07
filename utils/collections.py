@@ -1,4 +1,4 @@
-class Queue():
+class Queue:
     """
     Queue manager utility class
     ...
@@ -19,7 +19,7 @@ class Queue():
     """
 
 
-    def __init__(self, items=[]):
+    def __init__(self, items = None):
         """
         Parameters
         ----------
@@ -28,8 +28,12 @@ class Queue():
         length : int
             The count of all the elements inside __array
         """
-        self.__array = items
-        self.length = len(items)
+        if items is None:
+            self.__array = []
+            self.length = 0
+        else:
+            self.__array = items
+            self.length = len(items)
     
     def enqueue(self, item):
         """ Adds another element to the queue
@@ -75,7 +79,7 @@ class Queue():
         """
         return Queue(self.__array)
 
-class Stack():
+class Stack:
     """
     Stack manager utility class
 
@@ -99,7 +103,7 @@ class Stack():
     clone()
         Returns a copy of the stack
     """
-    def __init__(self, items=[]):
+    def __init__(self, items=None):
         """
         Parameters
         ----------
@@ -108,8 +112,12 @@ class Stack():
         length : int
             The count of all the elements inside __array
         """
-        self.__array = items
-        self.length = len(items)
+        if items is None:
+            self.__array = []
+            self.length = 0
+        else:
+            self.__array = items
+            self.length = len(items)
     
     def add(self, item):
         """ Adds another element to the queue
