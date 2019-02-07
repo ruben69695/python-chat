@@ -49,7 +49,7 @@ class Queue:
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self.__array.pop(0)
+        last = self._Queue__array.pop(-1)
         self.length -= 1
         return last
     
@@ -58,7 +58,7 @@ class Queue:
         Acts as a getter of the private attribute __array
 
         """
-        return self.__array
+        return self._Queue__array
 
     def clone(self):
         """ Clones self.__array
@@ -66,7 +66,7 @@ class Queue:
         to the instance
 
         """
-        return Queue(self.__array)
+        return self._Queue__array
 
 
 class Stack:
