@@ -1,6 +1,7 @@
 import socketserver
 import threading
 
+
 class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     """
     Provides continue streams of data between client and server using Internet TCP protocol
@@ -22,17 +23,16 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         Initializes a TCPServer instance server thread
     """
 
-    
-    def __init__(self, server_address, RequestHandlerClass):
+    def __init__(self, server_address, request_handler_class):
         """
         Parameters
         ----------
         server_address : tuple
-            A 2 values tuple containint the server IP and port
-        RequestHandlerClass : RequestHandler class
+            A 2 values tuple containing the server IP and port
+        request_handler_class : RequestHandler class
             Handles HTTP requests arrived at the server, using the handle() method
         """
-        socketserver.TCPServer.__init__(self, server_address, RequestHandlerClass)
+        socketserver.TCPServer.__init__(self, server_address, request_handler_class)
         self.ip = server_address[0]
         self.port = server_address[1]
         self.server_thread = threading.Thread(target=self.serve_forever)
@@ -49,4 +49,3 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         """
         self.server_thread.start()
         print(f'Server running on {self.ip}:{self.port}')
-        
