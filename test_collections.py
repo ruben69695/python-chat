@@ -1,4 +1,5 @@
 import sys
+import pytest
 sys.path.insert(0, 'utils/')
 
 from utils.collections import Queue
@@ -56,14 +57,18 @@ def test_dequeue_empty():
 
 
 def test_fetch_items():
-    my_queue = Queue()
+    my_queue = Queue([{"sender": "David", "receiver": "Ridwan", "message": "Hello!"}])
     assert my_queue.get_items() == [{"sender": "David", "receiver": "Ridwan", "message": "Hello!"}]
 
 def test_fetch_items_empty():
     my_queue = Queue()
-    my_queue.dequeue()
     assert my_queue.get_items() == []
 
+def test_dequeue_without_items_should_throw_an_exception():
+    my_queue = Queue()
+    with pytest.raises(Exception) as excp:
+        my_queue.dequeue()
+    assert 'The queue is empty' == str(excp.value)
 
 def test_cloning_private_array():
     my_queue = Queue()

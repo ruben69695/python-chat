@@ -11,14 +11,14 @@ class Queue:
     enqueue(item)
         Adds the item list to self.__array 
     dequeue()
-        Removes the last element of self.__array, if any
+        Removes the first element of self.__array, if any
     get_queue()
         Returns self.__array
     clone()
         Returns a copy of self.__array
     """
 
-    def __init__(self, items=[]):
+    def __init__(self, items = None):
         """
         Parameters
         ----------
@@ -27,8 +27,12 @@ class Queue:
         length : int
             The count of all the elements inside __array
         """
-        self.__array = items
-        self.length = len(items)
+        if items is None:
+            self.__array = []
+            self.length = 0
+        else:
+            self.__array = items
+            self.length = len(items)
     
     def enqueue(self, item):
         """ Adds another element to the queue
@@ -93,7 +97,7 @@ class Stack:
     clone()
         Returns a copy of the stack
     """
-    def __init__(self, items=[]):
+    def __init__(self, items=None):
         """
         Parameters
         ----------
@@ -102,8 +106,12 @@ class Stack:
         length : int
             The count of all the elements inside __array
         """
-        self.__array = items
-        self.length = len(items)
+        if items is None:
+            self.__array = []
+            self.length = 0
+        else:
+            self.__array = items
+            self.length = len(items)
     
     def add(self, item):
         """ Adds another element to the queue
