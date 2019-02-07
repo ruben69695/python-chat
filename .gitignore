@@ -106,5 +106,8 @@ venv.bak/
 # vscode
 .vscode
 
+# Pycharm
+.idea/
+
 # Environments
 Pipfile

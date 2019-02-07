@@ -8,10 +8,6 @@ class RequestHandler(socketserver.BaseRequestHandler):
 
     ...
 
-    Attributes
-    ----------
-    None
-
     Methods
     -------
     handle(self):
@@ -20,10 +16,6 @@ class RequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         """ Method that handles each request made to the server
-
-        Parameters
-        ----------
-        None
 
         Raises
         ------
