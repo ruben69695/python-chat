@@ -1,24 +1,27 @@
-class Queue():
+class Stack():
     """
-    Queue manager utility class
+    Stack manager utility class
+
     ...
+
     Attributes
     ----------
     length : int
         Holds the length of the queue
+
     Methods
     -------
-    enqueue(item)
-        Adds the item list to self.__array 
-    dequeue()
-        Removes the last element of self.__array, if any
-    get_queue()
-        Returns self.__array
+    add()
+        Adds an element to the stack
+    remove()
+        Remove and returns the last element of the stack of self.__array, if any
+    seek()
+        Returns the last element of the stack
+    get_items()
+        Returns all the stack elements
     clone()
-        Returns a copy of self.__array
+        Returns a copy of the stack
     """
-
-
     def __init__(self, items=[]):
         """
         Parameters
@@ -31,7 +34,7 @@ class Queue():
         self.__array = items
         self.length = len(items)
     
-    def enqueue(self, item):
+    def add(self, item):
         """ Adds another element to the queue
         Parameters
         ----------
@@ -43,8 +46,8 @@ class Queue():
         self.__array.append(item)
         self.length += 1
     
-    def dequeue(self):
-        """ Removes and returns the first item of the queue
+    def remove(self):
+        """ Removes and returns the last item of the stack
         Parameters
         ----------
         None
@@ -52,9 +55,20 @@ class Queue():
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self.__array.pop(0)
+        last = self.__array[-1]
         self.length -= 1
         return last
+
+    def seek(self):
+        """ Returns the last item of the stack
+        Parameters
+        ----------
+        None
+        """
+        if self.length == 0:
+            raise Exception('The queue is empty')
+
+        return self.__array[-1]
     
     def get_items(self):
         """ Returns self.__array
@@ -73,4 +87,4 @@ class Queue():
         ----------
         None
         """
-        return Queue(self.__array)
+        return Stack(self.__array)
