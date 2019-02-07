@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -106,5 +107,12 @@ venv.bak/
 # vscode
 .vscode
 
+# Pycharm
+.idea/
+
 # Environments
 Pipfile
+
+# Testing
+.coverage
+htmlcov/

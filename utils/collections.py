@@ -1,4 +1,4 @@
-class Queue():
+class Queue:
     """
     Queue manager utility class
     ...
@@ -17,7 +17,6 @@ class Queue():
     clone()
         Returns a copy of self.__array
     """
-
 
     def __init__(self, items=[]):
         """
@@ -45,37 +44,32 @@ class Queue():
     
     def dequeue(self):
         """ Removes and returns the first item of the queue
-        Parameters
-        ----------
-        None
+
         """
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self.__array.pop(0)
+        last = self._Queue__array.pop(-1)
         self.length -= 1
         return last
     
     def get_items(self):
         """ Returns self.__array
         Acts as a getter of the private attribute __array
-        Parameters
-        ----------
-        None
+
         """
-        return self.__array
+        return self._Queue__array
 
     def clone(self):
         """ Clones self.__array
         Returns a attribute __array as a copy without references 
         to the instance
-        Parameters
-        ----------
-        None
-        """
-        return Queue(self.__array)
 
-class Stack():
+        """
+        return self._Queue__array
+
+
+class Stack:
     """
     Stack manager utility class
 
@@ -125,9 +119,7 @@ class Stack():
     
     def remove(self):
         """ Removes and returns the last item of the stack
-        Parameters
-        ----------
-        None
+
         """
         if self.length == 0:
             raise Exception('The stack is empty')
@@ -138,9 +130,7 @@ class Stack():
 
     def seek(self):
         """ Returns the last item of the stack
-        Parameters
-        ----------
-        None
+
         """
         if self.length == 0:
             raise Exception('The queue is empty')
@@ -150,9 +140,7 @@ class Stack():
     def get_items(self):
         """ Returns self.__array
         Acts as a getter of the private attribute __array
-        Parameters
-        ----------
-        None
+
         """
         return self.__array
 
@@ -160,8 +148,6 @@ class Stack():
         """ Clones self.__array
         Returns a attribute __array as a copy without references 
         to the instance
-        Parameters
-        ----------
-        None
+
         """
         return Stack(self.__array)
