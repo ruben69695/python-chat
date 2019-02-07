@@ -18,14 +18,12 @@ class Queue:
         Returns a copy of self.__array
     """
 
-    def __init__(self, items = None):
+    def __init__(self, items=None):
         """
         Parameters
         ----------
-        __array : list
-            A private list that holds N elements of any type
-        length : int
-            The count of all the elements inside __array
+        items : any
+            Any non mutable object
         """
         if items is None:
             self.__array = []
@@ -53,9 +51,8 @@ class Queue:
         if self.length == 0:
             raise Exception('The queue is empty')
 
-        last = self._Queue__array.pop(-1)
         self.length -= 1
-        return last
+        return self._Queue__array.pop(-1)
     
     def get_items(self):
         """ Returns self.__array
@@ -90,7 +87,7 @@ class Stack:
         Adds an element to the stack
     remove()
         Remove and returns the last element of the stack of self.__array, if any
-    seek()
+    last_item()
         Returns the last element of the stack
     get_items()
         Returns all the stack elements
@@ -101,10 +98,8 @@ class Stack:
         """
         Parameters
         ----------
-        __array : list
-            A private list that holds N elements of any type
-        length : int
-            The count of all the elements inside __array
+        items : any
+            Any non mutable object
         """
         if items is None:
             self.__array = []
@@ -136,7 +131,7 @@ class Stack:
         self.length -= 1
         return last
 
-    def seek(self):
+    def last_item(self):
         """ Returns the last item of the stack
 
         """
@@ -158,4 +153,4 @@ class Stack:
         to the instance
 
         """
-        return Stack(self.__array)
+        return self._Stack__array
