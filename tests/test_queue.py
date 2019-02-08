@@ -69,4 +69,6 @@ def test_cloning_private_array():
     my_queue = Queue()
     my_queue.enqueue({"sender": "David", "receiver": "Ridwan", "message": "Hello!"})
     my_another_queue = my_queue.clone()
-    assert my_queue._Queue__array == my_another_queue
+    assert my_queue != my_another_queue
+    assert type(my_queue) == Queue
+    assert type(my_another_queue) == Queue

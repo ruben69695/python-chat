@@ -63,11 +63,10 @@ class Queue:
 
     def clone(self):
         """ Clones self.__array
-        Returns a attribute __array as a copy without references 
-        to the instance
+        Returns a deep copy of the instance Queue
 
         """
-        return self._Queue__array
+        return Queue(self._Queue__array.copy())
 
 
 class Stack:
@@ -149,8 +148,7 @@ class Stack:
 
     def clone(self):
         """ Clones self.__array
-        Returns a attribute __array as a copy without references 
-        to the instance
+        Returns a deep copy of the instance Stack
 
         """
-        return self._Stack__array
+        return Stack(self._Stack__array.copy())

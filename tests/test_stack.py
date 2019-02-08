@@ -78,10 +78,14 @@ def test_get_items_stack_with_items():
 def test_clone_empty_stack():
     stack = Stack()
     new_stack = stack.clone()
-    assert new_stack == []
+    assert stack != new_stack
+    assert type(stack) == Stack
+    assert type(new_stack) == Stack
 
 
 def test_clone_stack_with_items():
     stack = Stack([{"name": "Jessica"}])
     new_stack = stack.clone()
-    assert new_stack == [{"name": "Jessica"}]
+    assert stack != new_stack
+    assert type(stack) == Stack
+    assert type(new_stack) == Stack
