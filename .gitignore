@@ -116,3 +116,6 @@ Pipfile
 # Testing
 .coverage
 htmlcov/
+
+# MAC Dev Machines
+.DS_Store
