@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ruben69695/python-chat.svg?branch=master)](https://travis-ci.com/ruben69695/python-chat)
+
 # PyChat
 This is an open source project to develop an open chat platform with the objective of improving our Python skills. Made by the Intergalactic Python Team.
 
