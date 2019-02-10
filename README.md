@@ -37,8 +37,13 @@ To run only the tests at test_queue.py, verbose, stopping at the first error, ru
 
 # Technologies
 - Python
+- Pytest
+- SQLAlchemy
 - PostgreSQL
-- Microsoft Azure
+- Travis CI
+- Codefactor
+- Codecov
+- VSCode and PyCharm
 - Windows, Linux and Mac
 
 # Contribute
