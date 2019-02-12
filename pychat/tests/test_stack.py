@@ -1,6 +1,6 @@
 import pytest
 
-from utils.collections import Stack
+from pychat.utils.collections import Stack
 
 
 def test_create_empty_stack():

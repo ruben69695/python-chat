@@ -119,3 +119,6 @@ htmlcov/
 
 # MAC Dev Machines
 .DS_Store
+
+# sqlite databases
+*.db
