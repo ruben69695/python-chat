@@ -1,6 +1,6 @@
 import pytest
 
-from utils.collections import Queue
+from pychat.utils.collections import Queue
 
 
 def test_create_queue_empty():

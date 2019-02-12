@@ -1,7 +1,7 @@
 import time
 import sys
-from server.TCPServer import TCPServer
-from server.RequestHandler import RequestHandler
+from pychat.server.TCPServer import TCPServer
+from pychat.server.RequestHandler import RequestHandler
 
 # def client(ip, port, message):
 #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
