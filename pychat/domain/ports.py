@@ -1,5 +1,5 @@
 import abc
-import typing
+from typing import NewType
 from pychat.domain.models import User, Group, Message
 
 UserId = NewType('UserId', int)
@@ -35,7 +35,7 @@ class UnitOfWorkManager(abc.ABC):
 class AbstractUserRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, user: User) -> User:
+    def add(self, user: User):
         pass
 
     @abc.abstractmethod
@@ -67,7 +67,7 @@ class AbstractUserRepository(abc.ABC):
 class AbstractGroupRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, group: Group) -> Group:
+    def add(self, group: Group):
         pass
 
     @abc.abstractmethod
@@ -95,7 +95,7 @@ class AbstractGroupRepository(abc.ABC):
 class AbstractMessageRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, message: Message) -> Message:
+    def add(self, message: Message):
         pass
 
     @abc.abstractmethod
