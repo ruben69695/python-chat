@@ -2,6 +2,11 @@ import abc
 import typing
 from pychat.domain.models import User, Group, Message
 
+UserId = NewType('UserId', int)
+GroupId = NewType('GroupId', int)
+MessageId = NewType('MessageId', int)
+
+
 class UnitOfWork(abc.ABC):
 
     @abc.abstractmethod
@@ -32,9 +37,25 @@ class AbstractUserRepository(abc.ABC):
     @abc.abstractmethod
     def add(self, user: User) -> User:
         pass
+
+    @abc.abstractmethod
+    def remove(self, user: User):
+        pass
+
+    @abc.abstractmethod
+    def update(self, user: User):
+        pass
+
+    @abc.abstractmethod
+    def remove_by_id(self, id: UserId):
+        pass
     
     @abc.abstractmethod
-    def _get(self, id: int) -> User:
+    def _get(self, id: UserId) -> User:
+        pass
+
+    @abc.abstractmethod
+    def get_by_username(self, username: str) -> User:
         pass
 
     def get(self, id) -> User:
@@ -50,7 +71,19 @@ class AbstractGroupRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def _get(self, id: int) -> Group:
+    def remove(self, group: Group):
+        pass
+
+    @abc.abstractmethod
+    def update(self, group: Group):
+        pass
+
+    @abc.abstractmethod
+    def remove_by_id(self, id: GroupId):
+        pass
+
+    @abc.abstractmethod
+    def _get(self, id: GroupId) -> Group:
         pass
 
     def get(self, id) -> Group:
@@ -62,11 +95,23 @@ class AbstractGroupRepository(abc.ABC):
 class AbstractMessageRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, group: Message) -> Message:
+    def add(self, message: Message) -> Message:
         pass
 
     @abc.abstractmethod
-    def _get(self, id: int) -> Message:
+    def remove(self, message: Message):
+        pass
+
+    @abc.abstractmethod
+    def update(self, message: Message):
+        pass
+
+    @abc.abstractmethod
+    def remove_by_id(self, id: MessageId):
+        pass
+
+    @abc.abstractmethod
+    def _get(self, id: MessageId) -> Message:
         pass
 
     def get(self, id) -> Message:
