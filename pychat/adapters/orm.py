@@ -1,9 +1,11 @@
 import typing
 import sqlalchemy
+from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, mapper, scoped_session, sessionmaker, composite
+from sqlalchemy.orm import relationship, mapper, scoped_session, sessionmaker, composite, query
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Table, MetaData, create_engine, event
 from sqlalchemy_utils.functions import create_database, drop_database
+from sqlalchemy.orm.
 from pychat.domain.models import User, Group, Message
 from pychat.domain.ports import UnitOfWork, UnitOfWorkManager
 from pychat.domain.ports import (AbstractUserRepository, AbstractMessageRepository, 
@@ -16,27 +18,38 @@ class UserRepository(AbstractUserRepository):
     def __init__(self, session):
         self.session = session
 
-    def add(self, user: User) -> User:
+    def add(self, user: User):
         self.session.add(user)
+
+    def get_by_username(self, username: str) -> User:
+        return self.session.query(User).filter(User.username == username).first()
     
     def _get(self, id: int) -> User:
-        pass
+        return self.session.query(User).get(id)
 
     def remove(self, user: User):
-        pass
+        self.remove_by_id(user.id)
 
     def update(self, user: User):
-        pass
+        self.session(User).filter(User.id == user.id).\
+            update(
+                {
+                    User.username: user.username, 
+                    User.firstname: user.firstname, 
+                    User.lastname: user.lastname,
+                    User.updated_at: datetime.utcnow()
+                })
 
     def remove_by_id(self, id: UserId):
-        pass
+        self.session.query(User).filter(User.id == id).\
+            delete(synchronize_session=False)
 
 class GroupRepository(AbstractGroupRepository):
     
     def __init__(self, session):
         self.session = session
 
-    def add(self, group: Group) -> Group:
+    def add(self, group: Group):
         pass
     
     def _get(self, id: int) -> Group:
@@ -56,7 +69,7 @@ class MessageRepository(AbstractMessageRepository):
     def __init__(self, session):
         self.session = session
 
-    def add(self, message: Message) -> Message:
+    def add(self, message: Message):
         pass
     
     def _get(self, id: int) -> Message:
