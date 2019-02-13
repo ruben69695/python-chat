@@ -1,12 +1,13 @@
+import typing
+import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, mapper, scoped_session, sessionmaker, composite
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Table, MetaData, create_engine, event
 from sqlalchemy_utils.functions import create_database, drop_database
 from pychat.domain.models import User, Group, Message
 from pychat.domain.ports import UnitOfWork, UnitOfWorkManager
-from pychat.domain.ports import AbstractUserRepository, AbstractMessageRepository, AbstractGroupRepository
-import typing
-import sqlalchemy
+from pychat.domain.ports import (AbstractUserRepository, AbstractMessageRepository, 
+                                    AbstractGroupRepository, UserId, GroupId, MessageId)
 
 SessionFactory = typing.Callable[[], sqlalchemy.orm.Session]
 
@@ -21,6 +22,15 @@ class UserRepository(AbstractUserRepository):
     def _get(self, id: int) -> User:
         pass
 
+    def remove(self, user: User):
+        pass
+
+    def update(self, user: User):
+        pass
+
+    def remove_by_id(self, id: UserId):
+        pass
+
 class GroupRepository(AbstractGroupRepository):
     
     def __init__(self, session):
@@ -32,6 +42,15 @@ class GroupRepository(AbstractGroupRepository):
     def _get(self, id: int) -> Group:
         pass
 
+    def remove(self, group: Group):
+        pass
+
+    def update(self, group: Group):
+        pass
+
+    def remove_by_id(self, id: GroupId):
+        pass
+
 class MessageRepository(AbstractMessageRepository):
 
     def __init__(self, session):
@@ -41,6 +60,15 @@ class MessageRepository(AbstractMessageRepository):
         pass
     
     def _get(self, id: int) -> Message:
+        pass
+
+    def remove(self, message: Message):
+        pass
+
+    def update(self, message: Message):
+        pass
+
+    def remove_by_id(self, id: MessageId):
         pass
 
 class SQLAlchemyUnitOfWorkManager(UnitOfWorkManager):
