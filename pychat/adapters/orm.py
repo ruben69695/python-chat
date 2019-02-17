@@ -95,7 +95,12 @@ class MessageRepository(AbstractMessageRepository):
         self.session(Message).filter(Message.id == message.id).\
             update(
                 {
-                    Message.message_recipients: message.message_recipients,
+                    Message.sender_user_id = message.sender_user_id,
+                    Message.sender_user = message.sender_user,
+                    Message.sender_group_id = message.sender_group_id,
+                    Message.sender_group = message.sender_group,
+                    Message.message_recipients = message.message_recipients,
+                    Message.sended_at = message.sended_at,
                     Message.sended_at: message.sended_at
                 }
             )
@@ -137,7 +142,7 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
         return self
 
     def __exit__(self):
-        self.publish_events()
+        self.flushed_events = []
 
     def commit(self):
         self.session.flush()
@@ -157,10 +162,6 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
                 self.flushed_events += e.events
             except AttributeError:
                 pass
-
-    def publish_events(self):
-        for e in self.flushed_events:
-            self.bus.handle(e)
 
     @property
     def users(self):
