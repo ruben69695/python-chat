@@ -25,6 +25,21 @@ class UnitOfWork(abc.ABC):
     def rollback(self):
         pass
 
+    @property
+    @abc.abstractmethod
+    def users(self):
+        pass
+    
+    @property
+    @abc.abstractmethod
+    def groups(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def messages(self):
+        pass
+
 
 class UnitOfWorkManager(abc.ABC):
 
