@@ -15,7 +15,7 @@ class User:
 
 class Group:
 
-    def __init__(self):
+    def __init__(self, name):
         self.id = None
         self.name = ''
         self.created_at = datetime.utcnow()

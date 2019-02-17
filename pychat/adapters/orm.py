@@ -37,7 +37,10 @@ class UserRepository(AbstractUserRepository):
                     User.username: user.username, 
                     User.firstname: user.firstname, 
                     User.lastname: user.lastname,
-                    User.updated_at: datetime.utcnow()
+                    User.updated_at: datetime.utcnow(),
+                    User.groups: user.groups,
+                    User.sent_messages: user.sent_messages,
+                    User.received_messages: user.received_messages
                 })
 
     def remove_by_id(self, id: UserId):
@@ -50,19 +53,27 @@ class GroupRepository(AbstractGroupRepository):
         self.session = session
 
     def add(self, group: Group):
-        pass
+        self.session.add(user)        
     
     def _get(self, id: int) -> Group:
-        pass
+        return self.session.query(Group).get(id)
 
     def remove(self, group: Group):
-        pass
+        self.remove_by_id(group.id)
 
     def update(self, group: Group):
-        pass
+        self.session(Group).filter(Group.id == group.id).\
+            update(
+                {
+                    Group.name: group.name,
+                    Group.updated_at: datetime.utcnow(),
+                    Group.users: group.users,
+                    Group.messages: group.messages 
+                })
 
     def remove_by_id(self, id: GroupId):
-        pass
+        return self.session.query(Group).filter(Group.id == id).\
+            delete(synchronize_session=False)
 
 class MessageRepository(AbstractMessageRepository):
 
