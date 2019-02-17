@@ -41,7 +41,8 @@ class UserRepository(AbstractUserRepository):
                     User.groups: user.groups,
                     User.sent_messages: user.sent_messages,
                     User.received_messages: user.received_messages
-                })
+                }
+            )
 
     def remove_by_id(self, id: UserId):
         self.session.query(User).filter(User.id == id).\
@@ -69,7 +70,8 @@ class GroupRepository(AbstractGroupRepository):
                     Group.updated_at: datetime.utcnow(),
                     Group.users: group.users,
                     Group.messages: group.messages 
-                })
+                }
+            )
 
     def remove_by_id(self, id: GroupId):
         return self.session.query(Group).filter(Group.id == id).\
@@ -81,19 +83,26 @@ class MessageRepository(AbstractMessageRepository):
         self.session = session
 
     def add(self, message: Message):
-        pass
+        self.session.add(message)
     
     def _get(self, id: int) -> Message:
-        pass
+        return self.session.query(Message).get(id)
 
     def remove(self, message: Message):
-        pass
+        self.remove_by_id(id)
 
     def update(self, message: Message):
-        pass
+        self.session(Message).filter(Message.id == message.id).\
+            update(
+                {
+                    Message.message_recipients: message.message_recipients,
+                    Message.sended_at: message.sended_at
+                }
+            )
 
     def remove_by_id(self, id: MessageId):
-        pass
+        self.session(Message).filter(Message.id == id).\
+            delete(synchronize_session=False)
 
 class SQLAlchemyUnitOfWorkManager(UnitOfWorkManager):
     """
@@ -164,7 +173,6 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
     @property
     def messages(self):
         return MessageRepository(self.session)
-
 
 class SQLAlchemy:
 
