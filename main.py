@@ -54,10 +54,9 @@ if __name__ == "__main__":
 
     # If there is not a bad argument, initialize the server
     if EXIT == False:
-        server = TCPServer((HOST, PORT), RequestHandler)
-        with server:
-            server.start()
-            while(True):
-                # Sleep the thread to avoid hard cpu work
-                time.sleep(60)
+        server = TCPServer((HOST, PORT))
+        server.start()
+        while(True):
+            # Sleep the thread to avoid hard cpu work
+            time.sleep(60)
         server.shutdown()

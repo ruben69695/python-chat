@@ -1,8 +1,12 @@
-import socketserver
-import threading
+from pychat.utils.collections import Queue
+import selectors
+import socket
+import time
+import types
 
 
-class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+
+class TCPServer():
     """
     Provides continue streams of data between client and server using Internet TCP protocol
 
@@ -23,7 +27,7 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         Initializes a TCPServer instance server thread
     """
 
-    def __init__(self, server_address, request_handler_class):
+    def __init__(self, server_address):
         """
         Parameters
         ----------
@@ -32,11 +36,12 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
         request_handler_class : RequestHandler class
             Handles HTTP requests arrived at the server, using the handle() method
         """
-        socketserver.TCPServer.__init__(self, server_address, request_handler_class)
         self.ip = server_address[0]
         self.port = server_address[1]
-        self.server_thread = threading.Thread(target=self.serve_forever)
-        self.server_thread.daemon = True
+        self.server_address = server_address
+        self.client_sockets_connected = []
+        self.is_socket_opened = True
+        self.selector = selectors.DefaultSelector()
     
     def start(self):
         """ Starts the instance's server thread 
@@ -47,5 +52,46 @@ class TCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
             Uses self.ip and self.port attributes to start the server
         
         """
-        self.server_thread.start()
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.bind(self.server_address)
+        self.socket.listen()
         print(f'Server running on {self.ip}:{self.port}')
+        self.socket.setblocking(False)
+        self.selector.register(self.socket, selectors.EVENT_READ, data=None)
+
+        while True:
+            events = self.selector.select(timeout=None)
+            for key, mask in events:
+                if key.data is None:
+                    self.accept_wrapper(key.fileobj)
+                else:
+                    self.service_connection(key, mask)
+
+    def accept_wrapper(self, sock):
+        conn, addr = sock.accept()  # Should be ready to read
+        print('accepted connection from', addr)
+        conn.setblocking(False)
+        data = types.SimpleNamespace(addr=addr, inb=b'', outb=b'')
+        events = selectors.EVENT_READ | selectors.EVENT_WRITE
+        self.selector.register(conn, events, data=data)
+
+    def service_connection(self, key, mask):
+        sock = key.fileobj
+        data = key.data
+        if mask & selectors.EVENT_READ:
+            recv_data = sock.recv(1024)  # Should be ready to read
+            if recv_data:
+                data.outb += recv_data
+            else:
+                print('closing connection to', data.addr)
+                self.selector.unregister(sock)
+                sock.close()
+        if mask & selectors.EVENT_WRITE:
+            if data.outb:
+                print('echoing', repr(data.outb), 'to', data.addr)
+                sent = sock.send(data.outb)  # Should be ready to write
+                data.outb = data.outb[sent:]
+
+    def shutdown(self):
+        self.is_socket_opened = False
+        self.socket.close()
