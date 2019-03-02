@@ -25,4 +25,7 @@ class RequestHandler(socketserver.BaseRequestHandler):
         data = str(self.request.recv(1024), 'utf8')
         cur_thread = threading.current_thread()
         response = bytes("{} : {}".format(cur_thread.name, data), 'utf8')
+        self.server.addClient(self.client_address)
         self.request.sendall(response)
+        print("Received : {0}".format(data))
+        
