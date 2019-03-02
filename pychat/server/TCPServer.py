@@ -39,7 +39,7 @@ class TCPServer():
         self.ip = server_address[0]
         self.port = server_address[1]
         self.server_address = server_address
-        self.client_sockets_connected = []
+        self.client_sockets_connected = {}
         self.is_socket_opened = True
         self.selector = selectors.DefaultSelector()
     
@@ -70,10 +70,8 @@ class TCPServer():
     def accept_wrapper(self, sock):
         conn, addr = sock.accept()  # Should be ready to read
         print('accepted connection from', addr)
-        conn.setblocking(False)
-        data = types.SimpleNamespace(addr=addr, inb=b'', outb=b'')
-        events = selectors.EVENT_READ | selectors.EVENT_WRITE
-        self.selector.register(conn, events, data=data)
+        conn.setblocking(False)      
+        self._register_client(addr, conn)
 
     def service_connection(self, key, mask):
         sock = key.fileobj
@@ -91,6 +89,13 @@ class TCPServer():
                 print('echoing', repr(data.outb), 'to', data.addr)
                 sent = sock.send(data.outb)  # Should be ready to write
                 data.outb = data.outb[sent:]
+
+    def _register_client(self, address, sock):
+        data = types.SimpleNamespace(addr=address, inb=b'', outb=b'')
+        events = selectors.EVENT_READ | selectors.EVENT_WRITE
+        self.selector.register(sock, events, data=data)
+        self.client_sockets_connected[address] = sock
+        print('Client with the address {0} registered'.format(address))
 
     def shutdown(self):
         self.is_socket_opened = False
