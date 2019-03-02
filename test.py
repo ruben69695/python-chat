@@ -51,7 +51,7 @@ if len(sys.argv) != 4:
     print("usage:", sys.argv[0], "<host> <port> <num_connections>")
     sys.exit(1)
 
-host, port, num_conns = sys.argv[1:4]
+host, port, num_conns = tuple(sys.argv[1:4])
 start_connections(host, int(port), int(num_conns))
 
 try:
@@ -67,3 +67,4 @@ except KeyboardInterrupt:
     print("caught keyboard interrupt, exiting")
 finally:
     sel.close()
+    

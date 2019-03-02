@@ -97,6 +97,8 @@ class TCPServer():
         self.client_sockets_connected[address] = sock
         print('Client with the address {0} registered'.format(address))
 
+
     def shutdown(self):
         self.is_socket_opened = False
         self.socket.close()
+        
